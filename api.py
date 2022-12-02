@@ -4,6 +4,7 @@ ses=requests.Session()
 
 ###----------[ GENERATING DATA ]---------- ###
 # Hash : hashlib.md5(hashlib.sha1(str(int(round(time.time()))).encode()).hexdigest().encode()).hexdigest()
+# Hash Result = str(Hash[0:8])+"-"+str(Hash[4:8])+"-"+str(Hash[4:12])+"-"+str(Hash[4:16])+"-"+str(Hash[12:20])
 # Uuid : str(uuid.uuid4())
 ### Recommended Use Uuid ###
 
@@ -30,21 +31,6 @@ ses=requests.Session()
 # App Version : 348.719.618.179
 
 ### ↓↓↓↓↓↓[ FOR EXAMPLE CODE TO REQUESTS ]↓↓↓↓↓↓ ###
-
-###----------[ HEADERS FOR REQUESTS ]---------- ###
-headers = {
-	"User-Agent": ugent,
-	"Authorization": "OAuth 350685531728|62f8ce9f74b12f84c123cc23437a4a32", # --> Use Acces Token
-	"X-FB-SIM-HNI": str(random.randint(20000, 40000)),
-	"X-FB-Net-HNI": str(random.randint(20000, 40000)),
-	"X-FB-Connection-Bandwidth": str(random.randint(20000000, 30000000)),
-	"X-FB-Connection-Quality": "GOOD",
-	"X-FB-Connection-Type": "mobile.CTRadioAccessTechnologyLTE",
-	"X-Fb-Net-Sid": "",
-	"X-FB-HTTP-Engine": "Liger",
-	"X-Tigon-Is-Retry": "False",
-	"X-FB-Friendly-Name": "authenticate",
-	"Content-Type": "application/x-www-form-urlencoded"}
 
 ###----------[ DATA FOR REQUESTS]---------- ###
 data = {
@@ -75,7 +61,6 @@ data = {
 	"app_ver": "348.719.618.179", # --> From Parsing User Agent
 	"meta_inf_fbmeta": "NO_FILE", # --> Optional Value
 	"currently_logged_in_userid" : "0",
-	#"method": "auth.login", # --> Under Certain Conditions (read the request description above)
 	"fb_api_req_friendly_name": "authenticate",
 	"fb_api_caller_class": "com.facebook.account.login.protocol.Fb4aAuthHandler",
 	"fb4a_shared_phone_cpl_experiment": "fb4a_shared_phone_nonce_cpl_at_risk_v3",
@@ -83,6 +68,57 @@ data = {
 	"access_token": "350685531728|62f8ce9f74b12f84c123cc23437a4a32", # --> Use App ID|Token/Sig
 	"api_key": "882a8490361da98702bf97a021ddc14d",
 	"sig":"62f8ce9f74b12f84c123cc23437a4a32"} # --> Use App ID|Token/Sig
+	
+	###----------[ Many Other Data With Different Functions ]---------- ###
+	#"method": "auth.login", # --> Under Certain Conditions (read the request description above)
+	#"relative_url": "method/auth.login",
+	#"omit_response_on_success": "false",
+	#"logged_out_id": str(uuid.uuid()),
+	#"interface": "wifi",
+	#"reason", "unknown",
+	#"headwind_version", "3",
+	#"headwind_cursor", "{}",
+	#"hash_id": str(uuid.uuid()),
+	#"community_id": "",
+	#"try_num": "1",
+	#"cds_experiment_group": "-1",
+	#"enroll_misauth": "false",
+	#"jazoest", "",
+	#"encrypted_msisdn": "",
+	#"sim_country": "id",
+	#"network_country": "id",
+	#"should_query_for_animation": "true",
+	#"flow": "CONTROLLER_INITIALIZATION",
+	#"query_hash": "".join(random.choice(string.ascii_uppercase + string.digits) for _ in range(40)),
+
+###----------[ HEADERS FOR REQUESTS ]---------- ###
+content_lenght = ("&").join([ "%s=%s" % (key, value) for key, value in data.items() ])
+headers = {
+	"User-Agent": ugent,
+	"Authorization": "OAuth 350685531728|62f8ce9f74b12f84c123cc23437a4a32", # --> Use App ID|Token/Sig
+	"X-FB-SIM-HNI": str(random.randint(20000, 40000)),
+	"X-FB-Net-HNI": str(random.randint(20000, 40000)),
+	"X-FB-Connection-Bandwidth": str(random.randint(20000000, 30000000)),
+	"X-FB-Connection-Quality": "GOOD",
+	"X-FB-Connection-Type": "mobile.CTRadioAccessTechnologyLTE",
+	"X-Fb-Net-Sid": "",
+	"X-FB-HTTP-Engine": "Liger",
+	"X-Tigon-Is-Retry": "False",
+	"X-FB-Friendly-Name": "authenticate",
+	"Content-Type": "application/x-www-form-urlencoded",
+	"Content-Length": str(len(content_lenght))}
+	
+	###----------[ Many Other Headers With Different Functions ]---------- ###
+	#"server_timestamps": "true",
+	#"fb_api_caller_class": "graphservice",
+	#"fb_api_analytics_tags": "["GraphServices"]",
+	#"request_token": Token,
+	#"Priority": "u=3, i",
+	#"device_id": str(uuid.uuid4()),
+	#"family_device_id": str(uuid.uuid4()),
+	#"X-FB-Client-IP": "True",
+	#"X-FB-Server-Cluster": "True",
+	#"X-MSGR-Region": "FRC"
 
 ###----------[ REQUESTS POST ]---------- ###
 post = ses.post("https://b-graph.facebook.com/auth/login",data=data,headers=headers)
