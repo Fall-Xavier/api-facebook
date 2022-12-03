@@ -29,6 +29,8 @@ ses=requests.Session()
 # Device : Infinix X682B
 # Versi Android/OS : 4.0.0
 # App Version : 348.719.618.179
+# Language : en_US
+# Country Code : US
 
 ### ↓↓↓↓↓↓[ FOR EXAMPLE CODE TO REQUESTS ]↓↓↓↓↓↓ ###
 
